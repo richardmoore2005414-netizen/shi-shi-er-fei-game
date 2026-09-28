@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>似是而非 · True or False Myth Buster</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="app">
+    <!-- START SCREEN -->
+    <section id="start-screen" class="screen active">
+      <div class="hero">
+        <div class="logo">似是而非</div>
+        <p class="tagline">True or False: Myth Buster</p>
+        <p class="desc">快节奏辨識迷思，探究驚人真相</p>
+      </div>
+      <div class="start-form">
+        <input type="text" id="player-name" placeholder="輸入你的名稱" maxlength="12" autocomplete="off">
+        <button id="btn-start" class="btn primary">開始挑戰</button>
+        <button id="btn-howto" class="btn ghost">如何玩</button>
+      </div>
+      <div class="stats-preview" id="last-score"></div>
+    </section>
+
+    <!-- HOW TO PLAY -->
+    <section id="howto-screen" class="screen">
+      <div class="card">
+        <h2>遊戲規則</h2>
+        <ul class="rules">
+          <li>每題出現一句陳述，判斷是 <strong>True（真相）</strong> 還是 <strong>False（迷思）</strong>。</li>
+          <li>速答階段限時 <strong>10 秒</strong>，答對 +10，答錯或超時 -10。</li>
+          <li>若成功識破 False 迷思，會出現 <strong>進階四選一</strong>：猜猜真相是什麼！</li>
+          <li>四選一答對再 +10（本題最高 +20），答錯不扣分。</li>
+          <li>最低分數保護為 0分。排行榜依總分 → 用時 → 準確率排序。</li>
+        </ul>
+        <button id="btn-back" class="btn primary">回去</button>
+      </div>
+    </section>
+
+    <!-- GAME SCREEN -->
+    <section id="game-screen" class="screen">
+      <header class="game-header">
+        <div class="score-box">分數 <span id="score">0</span></div>
+        <div class="progress">
+          <span id="q-num">1</span> / <span id="q-total">10</span>
+        </div>
+        <div class="timer-box">
+          <div class="timer-ring">
+            <svg viewBox="0 0 36 36">
+              <path class="bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+              <path id="timer-path" class="fg" stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+            </svg>
+            <span id="timer-text">10</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="question-area">
+        <div class="category" id="category">動物</div>
+        <p class="statement" id="statement">載入中...</p>
+      </div>
+
+      <div id="tf-buttons" class="answer-buttons">
+        <button class="btn true-btn" data-answer="true">TRUE<br><small>真相</small></button>
+        <button class="btn false-btn" data-answer="false">FALSE<br><small>迷思</small></button>
+      </div>
+
+      <div id="mc-buttons" class="mc-buttons hidden">
+        <p class="mc-prompt" id="mc-prompt">那麼真相是什麼？</p>
+        <button class="btn mc-opt" data-opt="A">A</button>
+        <button class="btn mc-opt" data-opt="B">B</button>
+        <button class="btn mc-opt" data-opt="C">C</button>
+        <button class="btn mc-opt" data-opt="D">D</button>
+      </div>
+    </section>
+
+    <!-- FEEDBACK / EXPLAIN -->
+    <section id="feedback-screen" class="screen">
+      <div class="feedback-card" id="feedback-card">
+        <div class="result-icon" id="result-icon"></div>
+        <h2 id="result-title"></h2>
+        <p class="score-delta" id="score-delta"></p>
+        <div class="explain-box">
+          <h3>詳細解釋</h3>
+          <p id="explanation"></p>
+          <h3>趣味知識</h3>
+          <p id="fun-fact"></p>
+        </div>
+        <button id="btn-next" class="btn primary">下一題</button>
+      </div>
+    </section>
+
+    <!-- RESULT SCREEN -->
+    <section id="result-screen" class="screen">
+      <div class="result-card">
+        <h2>挑戰結束！</h2>
+        <div class="final-score">
+          <span id="final-score">0</span>
+          <small>分</small>
+        </div>
+        <div class="result-stats">
+          <div><span id="final-time">0</span>s<br><small>總用時</small></div>
+          <div><span id="final-acc">0</span>%<br><small>準確率</small></div>
+          <div><span id="final-correct">0</span><br><small>答對題數</small></div>
+        </div>
+        <div class="leaderboard">
+          <h3>排行榜</h3>
+          <ol id="leaderboard-list"></ol>
+        </div>
+        <button id="btn-restart" class="btn primary">再玩一次</button>
+        <button id="btn-home" class="btn ghost">回主頁</button>
+      </div>
+    </section>
+  </div>
+
+  <script src="questions.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
